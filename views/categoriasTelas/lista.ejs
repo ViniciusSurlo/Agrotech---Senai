@@ -1,25 +1,28 @@
-<%- include('../includes/header.ejs', { titulo : 'Lista Categorias'}) %>
-<main class="produtos-lista margem">
+<%- include('../includes/header.ejs', { titulo : 'Lista Categorias' }) %>
+  <main class="produtos-lista margem">
+
     <h2 class="titulo-produtos"> Lista de Categorias</h2>
-    <button type="button" class="btn btn-primary  adc-categoria mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"> Adicionar nova</button>
+    
+    <button type="button" class="btn btn-primary  adc-categoria mb-3" data-bs-toggle="modal"
+      data-bs-target="#exampleModal" data-bs-whatever="@mdo"> Adicionar nova</button>
     <!-- Busca -->
-     <div class="arrumandocategoriasemfilas d-flex">
-      
+    <div class="arrumandocategoriasemfilas d-flex">
+
 
       <!-- Ordenar -->
-        <form action="/categorias/" method="GET" class="form form-consulta d-flex gap-3">
-          <input type="text" name="busca" class="form-control" placeholder="Buscar Categoria" value="<%= busca %>">
-          
-          <select name="ordenar" onchange="this.form.submit()" class="form-select ordenar-soq-bonito">
-          <option value="nome_categoria" 
-          <%= ordenar == 'nome_categoria' ? 'selected' : '' %>>Ordenar por Categoria</option>
-          </select>
-          <button type="submit" class="btn btn-success buscar-soq-bonito">Buscar</button>
-        </form>
-   
-      
-   
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <form action="/categorias/" method="GET" class="form form-consulta d-flex gap-3">
+        <input type="text" name="busca" class="form-control" placeholder="Buscar Categoria" value="<%= busca %>">
+
+        <select name="ordenar" onchange="this.form.submit()" class="form-select ordenar-soq-bonito">
+          <option value="nome_categoria" <%=ordenar=='nome_categoria' ? 'selected' : '' %>>Ordenar por Categoria
+          </option>
+        </select>
+        <button type="submit" class="btn btn-success buscar-soq-bonito">Buscar</button>
+      </form>
+
+
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -27,82 +30,112 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              
+
               <!-- CATEGORIAS NOVO -->
               <form action="/categorias/novo" method="POST" class="form">
                 <div class="form-group">
-                    <label for="nome_categoria" class="col-form-label">Nome da Categoria:</label>
-                    <input type="text" class="form-control" id="nome_categoria" name="nome_categoria" required>
-                    <button type="submit" class="btn btn-primary adc-categoria gap-4 mt-3"> Adicionar </button>
-                    <a href="/categorias/" class="btn btn-secondary gap-4 mt-3" data-bs-dismiss="modal"> Cancelar </a>
+                  <label for="nome_categoria" class="col-form-label">Nome da Categoria:</label>
+                  <input type="text" class="form-control" id="nome_categoria" name="nome_categoria" required>
+                  <button type="submit" class="btn btn-primary adc-categoria gap-4 mt-3"> Adicionar </button>
+                  <a href="/categorias/" class="btn btn-secondary gap-4 mt-3" data-bs-dismiss="modal"> Cancelar </a>
                 </div>
-        </div>
-        
-                <% if (typeof mensagem != 'undefined') { %>
-                    <p class="erro"><%= mensagem %></p>
-                <% } %>
-            
             </div>
-           
-            <div class="modal-footer"> 
-            
-            
+
+            <% if (typeof mensagem !='undefined' ) { %>
+              <p class="erro">
+                <%= mensagem %>
+              </p>
+              <% } %>
+
           </div>
-        </form>
+
+          <div class="modal-footer">
+
+
+          </div>
+          </form>
         </div>
       </div>
     </div>
-    
+
+    <% if (typeof mensagem !='undefined' ) { %>
+      <p class="erro">
+        <% mensagem %>
+      </p>
+      <% } %>
+
 
       
+        <!-- Lista Categorias -->
+        <h3 class="mt-4">Ativos</h3>
+        <div class="d-flex gap-3 coluninha">
+          <% for (let categoria of categorias) { %>
+            <div class="card card-categorias">
+              <div class="card-header">
+                <strong>Categoria</strong>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= categoria.nome_categoria %>
+                </h5>
 
+                <div class="buttons centralizar">
+                  <!-- Botão de Editar -->
+                  <a href="/categorias/<%= categoria.id_categoria%>/editar" class="btn btn-edit botao">
+                    <i class="bi bi-pencil-square"></i>&nbsp;Editar
+                  </a>
 
-
-    <% if (typeof mensagem != 'undefined') { %>
-        <p class="erro"><% mensagem %></p>
-    <% } %>
-
-
-
-<!-- Lista Categorias -->
-    
-    <div class="d-flex gap-3 coluninha"> 
-        <% for (let categoria  of categorias) { %>
-          <div class="card">
-        <div class="card-header">
-          Categoria
+                  <!-- Botão de Excluir -->
+                  <form action="/categorias/<%= categoria.id_categoria%>/deletar" method="POST">
+                    <button type="submit" class="btn btn-delete botao" onclick="return confirmDelete(event, this)"><i
+                        class="bi bi-x-lg"></i>&nbsp;Inativar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <%}%>
         </div>
-        <div class="card-body">
-          <h5 class="card-title"><%= categoria.nome_categoria %></h5>
-          
-          <div class="buttons"> 
-          <!-- Botão de Editar -->
-          <a href="/categorias/<%= categoria.id_categoria%>/editar"  class="btn btn-edit botao"><i class="bi bi-pencil-square"></i>Editar</a>
-          
-          
-          
-          <!-- Botão de Excluir -->
-          <form action="/categorias/<%= categoria.id_categoria%>/deletar" method="POST">
-            <button type="submit" class="btn btn-delete botao" onclick="return confirmDelete(event, this)"><i class="bi bi-trash3"></i>Excluir</button>
-        </form>
-          </div>
-        </div>
-          </div>
-        <%}%>
-      </div>
-    
-    
-    </main>
+        <br>
+      
 
-<!-- Script para Confirmação de Exclusão -->
-<script>
-  function confirmDelete(event, button) {
+        <h3>Inativos</h3>
+        <div class="d-flex gap-3 coluninha">
+          <% for (let categoria of inativos) { %>
+            <div class="card card-categorias">
+              <div class="card-header">
+                <strong>Categoria</strong>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= categoria.nome_categoria %>
+                </h5>
+
+                <div class="buttons">
+                  <!-- Botão de Ativar -->
+                  <form action="/categorias/<%= categoria.id_categoria%>/ativar" method="POST" class="centralizar">
+                    <button type="submit" class="btn btn-edit botao"><i class="bi bi-check2"></i>&nbsp;Ativar</button>
+                  </form>
+                  
+                </div>
+                
+              </div>
+            </div>
+            <%}%>
+        </div>
+        <br>
+        <br>
+  </main>
+
+  <!-- Script para Confirmação de Exclusão -->
+  <script>
+    function confirmDelete(event, button) {
       event.preventDefault(); // Impede o envio do formulário imediatamente
       const confirmation = confirm("Tem certeza de que deseja excluir esta categoria?");
       if (confirmation) {
-          button.closest("form").submit(); // Envia o formulário se o usuário confirmar
+        button.closest("form").submit(); // Envia o formulário se o usuário confirmar
       }
-  }
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>

@@ -1,6 +1,29 @@
 const express = require('express')
 const router = express.Router()
 const BD = require('../db')
+const {put, del} = require("@vercel/blob")
+
+// 2 Funções para fazer o upload do arquivo e retornar o link dele
+
+const enviarFoto = async (file) => {
+    const fileBuffer = file.data
+    const originalName = file.name
+    const blob = await put(originalName, fileBuffer, {
+        access: "public", // Define acesso público ao arquivo
+    });
+    console.log(`Arquivo enviado com sucesso! URL: ${blob.url}`);
+    return blob.url;
+};
+
+// Função para excluir a foto 
+const excluirFoto = async (imagemUrl) => {
+    const nomeArquivo = imagemUrl.split("/").pop();
+    if (nomeArquivo) {
+        await del(nomeArquivo);
+        console.log(`Arquivo ${nomeArquivo} excluído com sucesso.`);
+    }
+}
+
 
 // Listar Produtos
 // Read
@@ -43,7 +66,6 @@ router.get('/', async (req, res) => {
 router.get('/novo', async (req,res)=>{
     try{
         const categorias = await BD.query(`SELECT * FROM categorias`)
-        console.log(categorias);
         res.render('produtosTelas/novo', {categorias: categorias.rows})
     }catch(erro){
         console.log('Erro ao entrar tela de cadastro', erro);
@@ -52,11 +74,11 @@ router.get('/novo', async (req,res)=>{
 })
 router.post('/novo', async (req, res) => {
     try{
-        
-        const {nome_produto, valor, estoque, estoque_minimo, imagem, id_categoria} = req.body;
+        const urlImagem = await enviarFoto(req.files.file);
+        const {nome_produto, valor, estoque, estoque_minimo, id_categoria} = req.body;
         await BD.query(`INSERT INTO produtos 
             (nome_produto, valor, estoque, estoque_minimo, imagem, id_categoria) 
-            values ($1, $2, $3, $4, $5, $6) `, [nome_produto, valor, estoque, estoque_minimo, imagem, id_categoria])
+            values ($1, $2, $3, $4, $5, $6) `, [nome_produto, valor, estoque, estoque_minimo, urlImagem, id_categoria])
         res.redirect('/produtos/')
     }catch (erro){
         console.log('Erro ao entrar tela de cadastro', erro);
@@ -71,7 +93,6 @@ router.get('/:id/editar', async (req, res) => {
     try{
         const id = req.params.id
         const produtos =  await BD.query(`SELECT * FROM produtos WHERE id_produto = $1`, [id])
-        console.log(produtos);
         const categorias = await BD.query(`SELECT * FROM categorias`)
         const movimentacoes = await BD.query(`select m.data_movimentacao, m.tipo_movimentacao, m.estoque, m.quantidade, m.descricao, TO_CHAR(data_movimentacao, 'DD/MM/YYYY') as data from movimentacoes 
             as m where m.id_produto = $1`, [id])
@@ -87,7 +108,14 @@ router.post('/:id/editar', async  (req, res) => {
     try{
         const id =  req.params.id
         const {nome, valor, estoque, estoque_minimo, imagem, id_categoria} = req.body
-        await BD.query(`UPDATE produtos SET nome_produto = $1, valor = $2,  estoque = $3, estoque_minimo =$4, imagem = $5, id_categoria = $6 WHERE id_produto  = $7`, [nome, valor, estoque, estoque_minimo, imagem, id_categoria, id])
+        
+        let urlImagem = imagem
+        if(req.files){
+            excluirFoto(urlImagem)
+            urlImagem = await enviarFoto(req.files.file)
+        }
+        
+        await BD.query(`UPDATE produtos SET nome_produto = $1, valor = $2,  estoque = $3, estoque_minimo =$4, imagem = $5, id_categoria = $6 WHERE id_produto  = $7`, [nome, valor, estoque, estoque_minimo, urlImagem, id_categoria, id])
         res.redirect('/produtos/')
     }catch  (erro){
         console.log('Erro ao editar produto', erro);
@@ -105,7 +133,7 @@ router.post('/:id/lancar-movimentacao', async (req, res) => {
         await BD.query(`INSERT INTO movimentacoes (id_produto, tipo_movimentacao, quantidade, descricao, id_usuario, data_movimentacao) VALUES ($1, $2, $3, $4, $5, current_date)`
         , [id, tipo_movimentacao, quantidade, descricao, req.session.idUsuario ])
         res.redirect(`/produtos/${id}/editar`);
-    }catch(erro){
+    } catch(erro){
         console.log('Erro ao Lançar movimentação', erro);
     }
 })
@@ -115,6 +143,7 @@ router.post('/:id/lancar-movimentacao', async (req, res) => {
 
 router.post('/:id/deletar',  async (req, res) => {
     const id = req.params.id
+    await BD.query (`DELETE FROM movimentacoes WHERE id_produto = $1`, [id])
     await BD.query (`DELETE FROM produtos WHERE id_produto = $1`, [id])
     res.redirect('/produtos/')
 })

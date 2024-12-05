@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const session = require('express-session')
-
+const fileUpload = require('express-fileupload')   
 const app = express()
 
 // Configurações do Servidor
@@ -31,6 +31,8 @@ const verificarAutenticacao = (req, res, next) => {
     }
 }
 
+// Middleware para fazer upload do arquivo img
+app.use(fileUpload())
 
 // Utilizando Rotas de Login
 const loginRotas = require('./routes/loginRotas')

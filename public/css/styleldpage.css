@@ -4,8 +4,15 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dancing+Script:wght@400..700&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playwrite+GB+S:ital@1&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dancing+Script:wght@400..700&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playwrite+GB+S:ital@1&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
+.imagem-responsiva {
+  min-height: 250px;
+  object-fit: cover;
+}
 
-
+.img-card {
+  min-height: 300px;
+  object-fit: cover;
+}
 
 aside {
     color: #fff;
@@ -189,6 +196,19 @@ aside {
   flex-wrap: wrap;
   max-width: 90%;
 }
+
+/* Classe personalizada para ajustar a largura e a altura dos cards */
+.card-categorias {
+  width: 300px; /* Defina a largura desejada */
+  height: 400px; /* Defina a altura desejada */
+  margin: 10px; /* Espaçamento entre os cards */
+}
+
+.card-header, .card-body {
+  text-align: center; /* Alinhar o texto ao centro */
+}
+
+
 
 
 .corpo-editar {
@@ -525,6 +545,8 @@ aside {
 .centralizar {
   justify-content: center;
   align-items: center;
+  width: 100%; 
+  display: flex; 
 }
 
 .arruma-imagem-para-caber {
@@ -584,4 +606,27 @@ th {
   border-left: 5px solid #006400;  
 }
 
+.arrumando {
+  min-height: 150px;
+  height: 150px;
+}
+
+.grafico-de-barras .card-body {
+  height: 465px; /* Defina a altura desejada aqui */
+}
+
+.grafico-de-barras canvas {
+  width: 100% !important;
+  height: 80% !important;
+}
+
+.foto {
+  border-radius: 50px;
+  width: 300px;
+  max-width: 300px;
+  height: 300px;
+  max-height: 300px;
+  margin-right: 50px;
+  object-fit: cover !important;
+}
 

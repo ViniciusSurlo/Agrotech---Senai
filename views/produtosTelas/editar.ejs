@@ -39,7 +39,7 @@
             <div class="tab-pane fade show active p-3 w-100" id="editar" role="tabpanel">
                 <h4 class="text-dark arrumar-tela"> Tela de edição </h4>
 
-                <form action="/produtos/<%= produtos.id_produto %>/editar" method="POST" class="form modal-body ">
+                <form action="/produtos/<%= produtos.id_produto %>/editar" method="POST" class="form modal-body " enctype="multipart/form-data">
                     <div class="form-group mb-3">
                         <label for="nome" class="col-form-label"> <b>Nome:</b></label>
                         <input class="form-control" type="text" id="nome" name="nome" value="<%= produtos.nome_produto %>" required>
@@ -58,7 +58,11 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="imagem" class="col-form-label"><b>Imagem:</b></label>
-                        <input class="form-control" type="url" id="imagem" name="imagem" value="<%= produtos.imagem %>" placeholder="http://img.com" required>
+                        <div class="d-flex">
+                            <img src="<%= produtos.imagem %>" alt="..." class="foto card-imagem">
+                            <input class="form-control" type="file" id="file" name="file" value="<%= produtos.imagem %>" >
+                        </div>
+                        <input type="hidden" id="imagem" name="imagem" value="<%= produtos.imagem %>">
                     </div>
             
                     <div class="form-group mb-3">

@@ -30,7 +30,7 @@
             </div>
             <div class="modal-body">
                 <!-- Formulário de adição de usuário -->
-                <form action="/usuarios/novo" method="POST" class="form">
+                <form action="/usuarios/novo" method="POST" class="form" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="nome" class="col-form-label infos-produto">Nome Usuário:</label>
                         <input type="text" class="form-control card-title" id="nome" name="nome" required>
@@ -41,7 +41,11 @@
                     </div>
                     <div class="form-group">
                         <label for="imagem" class="col-form-label infos-produto">Perfil:</label>
-                        <input type="url" class="form-control img" id="imagem" name="imagem" step="0.01" placeholder="EX: imagem.com">
+                        <div class="d-flex">
+                            <img src="<%= usuarios.imagem %>" alt="..." class="foto card-imagem">
+                            <input type="file" class="form-control" id="file" name="file" value="<%= usuarios.imagem %>">
+                        </div>
+                        <input type="hidden" id="imagem" class="form-control img" name="imagem" value="<%= usuarios.imagem %>">
                     </div>
                     <div class="form-group">
                         <label for="senha" class="col-form-label infos-produto">Senha:</label>
@@ -63,32 +67,37 @@
 </div>
 </div>
             
-          <!-- Lista de Usuários -->
-            <div class="d-flex gap-4 flex-wrap ">
-                <% for (let usuario of usuarios){ %>
-                <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                    <img class="card-img-top card-responsivo" src="<%= usuario.imagem %>" alt="">
-                      <h5 class="card-title">Nome: <%= usuario.nome %></h5>
-                      <p class="card-text">Usuário: <%= usuario.usuario%></p>
-                      <div class="d-flex">
-                      <a href="/usuarios/<%= usuario.id_usuario%>/editar"  class="btn m-1 botao"><i class="bi bi-pencil-square"></i>Editar</a>
-                      <form action="/usuarios/<%= usuario.id_usuario%>/deletar" method="POST">
-                          <button type="submit" class="btn botao-delete botao-excluir m-1 botao"  onclick="return confirmDelete(event, this)"><i class="bi bi-trash3"></i>Excluir</button>
-                      </form>
-                      </div>
-                    </div>
-                </div> 
-                <% } %>
+<div class="d-flex gap-4 flex-wrap">
+    <% for (let usuario of usuarios) { %>
+        <div class="card" style="width: 18rem;">
+            <img src="<%= usuario.imagem %>" class="img-card" alt="Imagem do usuário">
+            <div class="card-body">
+                <h5 class="card-title">Nome: <%= usuario.nome %></h5>
+                <p class="card-text"><strong>Usuário:</strong> <%= usuario.usuario %></p>
+                <div class="d-flex justify-content-around">
+                    <a href="/usuarios/<%= usuario.id_usuario %>/editar" class="btn btn-edit botao">
+                        <i class="bi bi-pencil-square"></i> Editar
+                    </a>
+                    <form action="/usuarios/<%= usuario.id_usuario %>/deletar" method="POST">
+                        <button type="submit" class="btn btn-delete botao" onclick="return confirmDelete(event, this)">
+                            <i class="bi bi-trash3"></i> Excluir
+                        </button>
+                    </form>
+                </div>
             </div>
-            
-</main>
+        </div>
+    <% } %>
+</div>
+
+<br>
+<br>
+</main> 
 
 <!-- Script para Confirmação de Exclusão -->
 <script>
     function confirmDelete(event, button) {
         event.preventDefault(); // Impede o envio do formulário imediatamente
-        const confirmation = confirm("Tem certeza de que deseja excluir esta categoria?");
+        const confirmation = confirm("Tem certeza de que deseja excluir este úsuario?");
         if (confirmation) {
             button.closest("form").submit(); // Envia o formulário se o usuário confirmar
         }

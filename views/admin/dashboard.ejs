@@ -39,12 +39,14 @@
       <h1> Overview </h1>
 
       <!-- Cards principais com valores -->
-      <section class="row mb-4 text-center">
+      <section class="row mb-5 text-center tamanho">
+ 
+        
 
         <!-- Card Total de Alunos -->
-        <div class="col-md-3 ">
+        <div class="col-md-3">
           <div class="card shadow-sm">
-            <div class="card-body card-dec">
+            <div class="card-body arrumando card-dec me-2">
               <h5 class="card-title"> Total de Produtos: </h5>
               <p class="card-text display-4">
                 <%= totalProdutos %>
@@ -56,7 +58,7 @@
         <!-- Card Total de Disciplinas -->
         <div class="col-md-3">
           <div class="card shadow-sm">
-            <div class="card-body card-dec">
+            <div class="card-body arrumando card-dec me-2">
               <h5 class="card-title"> Total de Categorias: </h5>
               <p class="card-text display-4">
                 <%= totalCategorias %>
@@ -68,7 +70,7 @@
         <!-- Card Total de produtos do estoque -->
         <div class="col-md-3">
           <div class="card shadow-sm">
-            <div class="card-body card-dec">
+            <div class="card-body arrumando card-dec me-2">
               <h5 class="card-title"> Total de Produtos no Estoque: </h5>
               <p class="card-text display-4">
                 <%= totalEstoque %>
@@ -80,7 +82,7 @@
         <!-- Card Total de produtos do estoque -->
         <div class="col-md-3">
           <div class="card shadow-sm card-dec">
-            <div class="card-body card-dec">
+            <div class="card-body arrumando card-dec me-2">
               <h5 class="card-title">Produtos abaixo do estoque: </h5>
               <p class="card-text display-4">
                 <%= produtos_baixo_estoque %>
@@ -89,22 +91,25 @@
           </div>
         </div>
 
+        
+
       </section>
 
       <!-- Section dos gráficos -->
       <section class="row">
         
         <!-- Gráfico de Barras -->
-        <div class="col-md-6 barras">
-          <div class="card shadow-sm">
-            <div class="card-header banner-dashboard text-center text-dark">
-              <strong>Valor Estoque por Categoria:</strong>
-            </div>
-            <div class="card-body">
-              <canvas id="estoque_categoria"> </canvas>
-            </div>
-          </div>
-        </div>
+<div class="col-md-6 barras grafico-de-barras">
+  <div class="card shadow-sm">
+    <div class="card-header banner-dashboard text-center text-dark">
+      <strong>Valor Estoque por Categoria:</strong>
+    </div>
+    <div class="card-body">
+      <canvas id="estoque_categoria"></canvas>
+    </div>
+  </div>
+</div>
+
 
 
          <!-- Gráfico de Pizza -->
@@ -138,11 +143,12 @@
       <h1 class="t-relatorio"> Relatórios </h1>
 
     
+      
     <div class="form-group">
       <h4 class="arrumar-tela">Produtos Abaixo do Estoque</h4>
           <table class="text-center table table-hover table-bordered border-dark">
               <thead>
-                  <tr >
+                  <tr>
                       <th><i class="bi bi-file-earmark-fill"></i> Nome do Produto</th>
                       <th><i class="bi bi-box-seam-fill"></i> Estoque</th>
                       <th><i class="bi bi-bar-chart-fill"></i> Valor</th>
@@ -164,9 +170,13 @@
                   <% } %>
               </tbody>
           </table>
+          <br>
+          <br>
   </div>
 
   </main>
+
+
 
 
 
@@ -258,3 +268,5 @@ new Chart(AbaixoCtx, {
 
    
   </script>
+
+  

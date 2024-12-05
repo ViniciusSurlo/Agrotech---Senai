@@ -1,6 +1,27 @@
 const express = require('express')
 const BD = require('../db')
 const router = express.Router()
+const {put, del} = require("@vercel/blob")
+
+const enviarFoto = async (file) => {
+    const fileBuffer = file.data
+    const originalName = file.name
+    const blob = await put(originalName, fileBuffer, {
+        access: "public", // Define acesso público ao arquivo
+    });
+    console.log(`Arquivo enviado com sucesso! URL: ${blob.url}`);
+    return blob.url;
+};
+
+// Função para excluir a foto 
+const excluirFoto = async (imagemUrl) => {
+    const nomeArquivo = imagemUrl.split("/").pop();
+    if (nomeArquivo) {
+        await del(nomeArquivo);
+        console.log(`Arquivo ${nomeArquivo} excluído com sucesso.`);
+    }
+}
+
 
 // Lista usuarios
 router.get('/', async (req, res) => {
@@ -16,17 +37,18 @@ router.get('/novo', async  (req, res) => {
         // res.render('usuariosTelas/novo', {usuarios: resultado.rows})
     }catch (erro){
         console.log('Erro ao abrir tela de cadastro de úsuario', erro);
-        res.render('usuariosTelas/novo', {mensagem: erro})
+        res.render('usuariosTelas/lista', {mensagem: erro})
     }
 })
 router.post('/novo/', async (req,res)=>{
     try{
+        const urlImagem = await enviarFoto(req.files.file);
         const {nome, usuario, imagem, senha} = req.body
-        await BD.query(`INSERT INTO usuarios (nome, usuario, imagem, senha) values ($1, $2, $3, $4)`, [nome, usuario, imagem, senha])
+        await BD.query(`INSERT INTO usuarios (nome, usuario, imagem, senha) values ($1, $2, $3, $4)`, [nome, usuario, urlImagem, senha])
         res.redirect('/usuarios/')
     }catch (erro){
         console.log('Erro ao abrir tela de cadastro de úsuario', erro);
-        res.render('usuariosTelas/novo', {mensagem: erro})
+        res.render('usuariosTelas/lista', {mensagem: erro})
     }
 })
 
@@ -46,7 +68,13 @@ router.post('/:id/editar', async (req,res)=>{
 try{
     const {id} = req.params
     const {nome, usuario, imagem, senha} = req.body
-    await BD.query(`UPDATE usuarios set nome = $1, usuario = $2, imagem = $3, senha = $4 WHERE id_usuario = $5`, [nome, usuario, imagem, senha, id])
+    let urlImagem = imagem
+    if(req.files){
+        excluirFoto(urlImagem)
+        urlImagem = await enviarFoto(req.files.file)
+    }
+
+    await BD.query(`UPDATE usuarios set nome = $1, usuario = $2, imagem = $3, senha = $4 WHERE id_usuario = $5`, [nome, usuario, urlImagem, senha, id])
     res.redirect('/usuarios/')
 }catch(erro){
     console.log('Erro ao editar usuario', erro);
