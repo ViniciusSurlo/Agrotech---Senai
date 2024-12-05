@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agritech Solutions Estoque</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="container-">
+
+    <!-- Ícone Flutuante do WhatsApp -->
+    <a href="https://wa.me/SEUNUMERO" class="whatsapp-float" target="_blank">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp.png" alt="WhatsApp">
+    </a>
+
+    <!-- DIV que pega toda a header -->
+    <div class="d-flex justify-content-between">
+        <!-- Logo -->
+        <img class="logo" src="./img/logo.png">
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse justify-content-end d-flex" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <!-- Button Sobre nós -->
+                            <a href="#sobrenos" class="nav-link fonte-landing text-white">Sobre nós</a>
+                        </li>
+                        
+                        
+                        <li class="nav-item">
+                            <a type="button" class="nav-link fonte-landing text-white" data-bs-toggle="modal" data-bs-target="#segundoModal">Contato</a>
+                        
+                            
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="segundoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Como nos encontrar?</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body d-flex">
+                                            <div class="coluna1">
+                                                <p><i class="bi bi-geo-alt-fill"></i> Rua das flores, 127 - Bairro Jardins </p>
+                                                <p><i class="bi bi-telephone-fill"></i> (18) 3722-8658 </p>
+                                                <p><i class="bi bi-file-earmark-fill"></i> Termos e Condições </p>
+                                                <p><i class="bi bi-lock-fill"></i> Política de privacidade </p>
+                                            </div>
+                                            <div class="coluna2">
+                                                <h1 class="titulomodalajuda"> Siga-nos! </h1>
+                                                <a href="https://www.whatsapp.com/?lang=pt_BR"><i class="bi bi-whatsapp"></i> Whatsapp </a>
+                                                <a href="https://www.instagram.com/agrotechbr/"><i class="bi bi-instagram"></i> Instagram </a>
+                                                <a href="https://www.facebook.com/agrotechbr/?locale=pt_BR"><i class="bi bi-facebook"></i> Facebook </a>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fim do modal -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="textos">
+        <h3 class="titulo"> AgroTech Solutions Estoque </h3>
+        <h1 class="subtitulo w-75">
+            Somos uma empresa inovadora especializada em soluções tecnológicas para o setor agrícola, nos destacamos no mercado por fornecer equipamentos agrícolas, insumos, e soluções de tecnologia para fazendas e agronegócios de pequeno e médio porte.
+        </h1>
+        <div>
+            <a href="/admin/" class="btn btn-success botao"> <i class="bi bi-box-arrow-in-right"></i> Acessar</a>
+        </div>
+    </div>
+
+    <!-- Animação -->
+    <div class="loop-wrapper">
+        <div class="mountain"></div>
+        <div class="hill"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="rock"></div>
+        <div class="truck"></div>
+        <div class="wheels"></div>
+    </div>
+
+    <!-- parte 2 -->
+    <div id="sobrenos" class="container">
+        <h1 class="frase-sbrns">Sobre nós</h1>
+        <div class="d-flex mt-3 gap-5">
+            <img src="../img/banner-aboutus.png" class="img-banner-aboutus" alt="Banner Sobre Nós">
+            <div class="box2" id="sobrenos">
+                <h2 class="frase-sbrns2">Localizada em São Paulo, a AgroTech Solutions conta com uma equipe altamente qualificada e comprometida em oferecer um excelente atendimento ao cliente e suporte técnico. Somos uma empresa inovadora especializada em soluções tecnológicas para o setor agrícola, nos destacamos no mercado por fornecer equipamentos agrícolas, insumos, e soluções de tecnologia para fazendas e agronegócios de pequeno e médio porte.</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card -->
+    <h1 class="titulo-index" id="produtos"> Produtos da AgroTech Solutions</h1>
+    <div class="d-flex teste">
+        <main class="d-flex gap-5" >
+            <!-- Trator -->
+            <section class="card card-blue">
+                <div class="product-image">
+                    <img src="/img/trator_produto.png" alt="Trator" draggable="false" />
+                </div>
+                <div class="product-info">
+                    <h2>Tratores</h2>
+                    <p>Pequenos e aplicações especiais, extremamente versáteis e eficientes.</p>
+                </div>
+            </section>
+
+            <!-- Venenos -->
+            <section class="card card-blue">
+                <div class="product-image">
+                    <img class="imagem-veneno" src="/img/veneno.png" alt="Vacinas" draggable="false" />
+                </div>
+                <div class="product-info">
+                    <h2>Venenos</h2>
+                    <p> Muito utilizados na agropecuária para combater doenças, pragas e plantas daninhas</p>
+                </div>
+            </section>
+
+            <!-- Equipamentos -->
+            <section class="card card-blue">
+                <div class="product-image">
+                    <img class="imagem-equipamentos" src="/img/equipamentos.png" alt="Vacinas" draggable="false" />
+                </div>
+                <div class="product-info">
+                    <h2>Equipamentos Agrícola</h2>
+                    <p> Parceiros nas tarefas do campo, aumentando a agilidade e eficiência das atividades.
+
+                    </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <%- include('../includes/footer.ejs', { titulo : 'index'}) %>
+
+
+</body>
+</html>

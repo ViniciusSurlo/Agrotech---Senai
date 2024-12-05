@@ -1,0 +1,20 @@
+<%- include('../includes/header.ejs', { titulo : 'Criar Categorias'}) %>
+
+<main>
+    <h2>Adicionar Nova Categoria</h2>
+
+    <form action="/categorias/novo" method="POST" class="form">
+        <div class="form-group">
+            <label for="nome_categoria">Nome da Categoria:</label>
+            <input type="text" id="nome_categoria" name="nome_categoria" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary"> Adicionar </button>
+        <a href="/categorias/" class="btn btn-secondary"> Cancelar </a>
+
+        <% if (typeof mensagem != 'undefined') { %>
+            <p class="erro"><%= mensagem %></p>
+        <% } %>
+    </form>
+</main>
+

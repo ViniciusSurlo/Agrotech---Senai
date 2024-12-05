@@ -1,0 +1,260 @@
+<%- include('../includes/header.ejs', { titulo : 'Dashboard' }) %>
+
+  <main class="produtos-lista margem">
+    <h2 class="titulo-produtos preto"> Dashboard </h1>
+
+      <div id="dataAtual" class="data"></div>
+      <script>
+        const diasSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+        const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        // Função para obter a data atual 
+        function obterDataAtual() {
+          const hoje = new Date();
+          const diaSemana = diasSemana[hoje.getDay()];
+          const diaNumerico = hoje.getDate();
+          const mes = meses[hoje.getMonth()];
+          return `<i class="bi bi-calendar irprolado"></i> <span class="dia-da-semana">${diaSemana}</span> ${diaNumerico} de ${mes}`;
+        }
+        document.getElementById("dataAtual").innerHTML = obterDataAtual(); 
+      </script>
+
+      <div id="linha-horizontal"> </div>
+
+      <div class="d-flex  centralizar">
+
+        <div>
+          <h5 class="textos"> Olá, <span class="aa">
+              <%= nomeUsuario %>!
+            </span></h5>
+          <h5 class="textos2"> Aqui você pode analisar seus dados e ter
+            um relatório parcial do seu estoque! </h5>
+        </div>
+
+        <div>
+          <img src="/img/plantacao.png" class="img-dash centralizar">
+        </div>
+
+      </div>
+
+      <h1> Overview </h1>
+
+      <!-- Cards principais com valores -->
+      <section class="row mb-4 text-center">
+
+        <!-- Card Total de Alunos -->
+        <div class="col-md-3 ">
+          <div class="card shadow-sm">
+            <div class="card-body card-dec">
+              <h5 class="card-title"> Total de Produtos: </h5>
+              <p class="card-text display-4">
+                <%= totalProdutos %>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Total de Disciplinas -->
+        <div class="col-md-3">
+          <div class="card shadow-sm">
+            <div class="card-body card-dec">
+              <h5 class="card-title"> Total de Categorias: </h5>
+              <p class="card-text display-4">
+                <%= totalCategorias %>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Total de produtos do estoque -->
+        <div class="col-md-3">
+          <div class="card shadow-sm">
+            <div class="card-body card-dec">
+              <h5 class="card-title"> Total de Produtos no Estoque: </h5>
+              <p class="card-text display-4">
+                <%= totalEstoque %>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Total de produtos do estoque -->
+        <div class="col-md-3">
+          <div class="card shadow-sm card-dec">
+            <div class="card-body card-dec">
+              <h5 class="card-title">Produtos abaixo do estoque: </h5>
+              <p class="card-text display-4">
+                <%= produtos_baixo_estoque %>
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Section dos gráficos -->
+      <section class="row">
+        
+        <!-- Gráfico de Barras -->
+        <div class="col-md-6 barras">
+          <div class="card shadow-sm">
+            <div class="card-header banner-dashboard text-center text-dark">
+              <strong>Valor Estoque por Categoria:</strong>
+            </div>
+            <div class="card-body">
+              <canvas id="estoque_categoria"> </canvas>
+            </div>
+          </div>
+        </div>
+
+
+         <!-- Gráfico de Pizza -->
+         <div class="col-md-5">
+          <div class="card shadow-sm">
+            <div class="card-header banner-dashboard text-center text-dark">
+              <strong >Estoque Minimo:</strong>
+            </div>
+            <div class="card-body">
+              <canvas id="estoqueMinimo"> </canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico de Produtos -->
+        <div class="col-md-11">
+          <div class="card shadow-sm">
+            <div class="card-header banner-dashboard text-center text-dark">
+              <strong>Estoque Produtos:</strong>
+            </div>
+            <div class="card-body">
+              <canvas id="estoqueProdutos"> </canvas>
+            </div>
+          </div>
+        </div>
+
+      
+      </section>
+
+      <!-- Relatórios -->
+      <h1 class="t-relatorio"> Relatórios </h1>
+
+    
+    <div class="form-group">
+      <h4 class="arrumar-tela">Produtos Abaixo do Estoque</h4>
+          <table class="text-center table table-hover table-bordered border-dark">
+              <thead>
+                  <tr >
+                      <th><i class="bi bi-file-earmark-fill"></i> Nome do Produto</th>
+                      <th><i class="bi bi-box-seam-fill"></i> Estoque</th>
+                      <th><i class="bi bi-bar-chart-fill"></i> Valor</th>
+                      
+                  </tr>
+              </thead>
+              <tbody>
+                  <%for (produto of produtos_baixo_estoque_tabela){ %>
+                      <tr>
+                          <td><%= produto.nome_produto %></td>
+                          <% if(produto.estoque === 1) { %>
+                            <td><%= produto.estoque %> unidade</td>
+                            <%} else { %>
+                              <td><%= produto.estoque %> unidades</td>
+                              <% } %>
+                          <td>R$<%= produto.valor %></td>
+                          
+                      </tr>
+                  <% } %>
+              </tbody>
+          </table>
+  </div>
+
+  </main>
+
+
+
+
+  <script>
+    // Recebendo o vetor produtos_categorias com o resuldado da consulta do Banco de Dados
+    const dadosEstoqueCategoria = <%- JSON.stringify(produtos_categorias) %>
+
+  // Extraindo Nome e médias para gerar vetores individuais para os dados do gráfico
+    const nomeCategorias = dadosEstoqueCategoria.map(c => c.nome_categoria)
+    const produtosCategoria = dadosEstoqueCategoria.map(c => c.produtos_categoria)
+    // Bar Chart - Média de Notas por Disciplina
+    const barCtx = document.getElementById('estoque_categoria').getContext('2d');
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: nomeCategorias,
+        datasets: [{
+          label: 'Valor em estoque',
+          data: produtosCategoria,
+          backgroundColor: ['#7ed957', '#28a745', '#c1ff72', '#0d6721', '#033a0f', '#669555']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true },
+          tooltip: { enabled: true }
+        }
+      }
+    });
+
+    // Recebendo o vetor produtos_categorias com o resuldado da consulta do Banco de Dados
+    const dadosEstoqueProdutos = <%- JSON.stringify(produtos) %>
+
+  // Extraindo Nome e médias para gerar vetores individuais para os dados do gráfico
+    const nomeProdutos = dadosEstoqueProdutos.map(p => p.nome_produto)
+    const quantProdutos = dadosEstoqueProdutos.map(p => p.estoque)
+    // Bar Chart - Média de Notas por Disciplina
+    const ProdutoCtx = document.getElementById('estoqueProdutos').getContext('2d');
+    new Chart(ProdutoCtx, {
+      type: 'bar',
+      data: {
+        labels: nomeProdutos,
+        datasets: [{
+          label: 'Qtde',
+          data: quantProdutos,
+          backgroundColor: ['#7ed957', '#28a745', '#c1ff72', '#0d6721', '#033a0f', '#669555', '#61e730', '#9cde5a', '#000000', '#d5f2b0','#38a709']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true },
+          tooltip: { enabled: true }
+        }
+      }
+    });
+
+    
+    // Recebendo o vetor produtos_categorias com o resuldado da consulta do Banco de Dados
+    const dadosEstoqueAbaixo = <%- JSON.stringify(produtos_baixo_estoque) %>
+    const dadosEstoqueAcima = <%- JSON.stringify(produtos_acima_estoque) %>
+
+    // Verifica se os dados foram fornecidos corretamente
+const totalAbaixo = dadosEstoqueAbaixo // Quantidade de produtos abaixo do estoque
+const totalAcima = dadosEstoqueAcima  // Quantidade de produtos acima do estoque
+    
+
+// Configura o gráfico de pizza
+const AbaixoCtx = document.getElementById('estoqueMinimo').getContext('2d');
+new Chart(AbaixoCtx, {
+  type: 'pie',
+  data: {
+    labels: ['Abaixo Estoque Mínimo', 'Acima Estoque Mínimo'],
+    datasets: [{
+      data: [totalAbaixo, totalAcima], // Dados dinâmicos
+      backgroundColor: ['#28a745', '#c1ff72'] // Cores para cada fatia
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: true },
+      tooltip: { enabled: true }
+    }
+  }
+});
+
+   
+  </script>

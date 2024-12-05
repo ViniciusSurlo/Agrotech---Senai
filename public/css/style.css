@@ -1,0 +1,737 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Audiowide&family=Great+Vibes&family=Londrina+Shadow&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dancing+Script:wght@400..700&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+GB+S:ital@1&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dancing+Script:wght@400..700&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playwrite+GB+S:ital@1&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #25d366;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  z-index: 1000;
+}
+
+.whatsapp-float i {
+  margin-top: 16px;
+}
+
+
+.titulo {
+    font-family: Raleway;
+    color: white;
+    font-size: 50px;
+    font-weight: 650;
+}
+
+.subtitulo {
+    font-family: Raleway;
+    color: white;
+    font-size: 28px;
+    font-weight: 200;
+    margin-top: 20px;
+}
+
+.textos {
+    margin-left: 60px;
+    margin-top: 90px;
+}
+
+.fonte-landing {
+    font-family: Raleway;
+    color: white;
+    font-size: 36px ;
+}
+
+.navbar-nav {
+    margin-right: 100px;
+    margin-top: 45px;
+    gap: 50px;
+}
+
+.botao {
+    background-color: #29B433 !important;
+    height: 40px;
+    margin-top: 20px;
+    width: 200px;
+}
+
+.dados-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .dados-table thead {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .dados-table th,
+  .dados-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .dados-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .dados-table td a,
+  .dados-table td form {
+    display: inline-block;
+  }
+  
+  /* Estilo dos botões */
+  .btn {
+    padding: 8px 12px;
+    margin-right: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-edit {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
+  .btn:hover {
+    opacity: 0.8;
+  }
+  
+  .form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .form-group input:focus {
+    gap: 1rem;
+  }
+
+  .form-consulta input, .form-consulta select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  .colocacao-card {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+  }
+
+.cor-botao-card {
+    color: #28a745;
+}
+
+.titulo-card {
+    font-family: Roboto !important; 
+    color: #0f4513 !important;
+}
+
+.fixarRodape {
+    display: flex;
+    justify-items: baseline;
+}
+
+
+
+.icones-info-footer {
+    color: #0f4513
+}
+
+.titulo-card {
+    font-family: "Montserrat" !important;
+    font-weight: 200; 
+    color: #0f4513 !important;
+}
+
+.coluna2 {
+  flex-direction: column !important;
+  display: flex;
+  gap: 10px;
+  text-decoration: none !important;
+  margin-top: 10px;
+}
+
+.titulomodalajuda {
+  font-family: "Raleway";
+  font-size: 20px;
+  margin-bottom: -5px;
+}
+
+.modal-body {
+  gap: 70px;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+/* Teste */
+
+body { 
+  background: #000000 !important;
+  font-family: 'Open Sans', sans-serif;
+  
+}
+.loop-wrapper {
+  position: relative;
+  margin-left: 60px;
+  width: 1300px;
+  height: 200px;
+  overflow: hidden;
+  border-bottom: 3px solid #fff;
+  color: #fff;
+  margin-bottom: 50px;
+  
+}
+.mountain {
+  position: absolute;
+  right: -900px;
+  bottom: -20px;
+  width: 2px;
+  height: 2px;
+  box-shadow: 
+    0 0 0 50px #006400,
+    60px 50px 0 70px #006400,
+    90px 90px 0 50px #006400,
+    250px 250px 0 50px #006400,
+    290px 320px 0 50px #006400,
+    320px 400px 0 50px #006400
+    ;
+  transform: rotate(130deg);
+  animation: mtn 20s linear infinite;
+}
+.hill {
+  position: absolute;
+  right: -900px;
+  bottom: -50px;
+  width: 400px;
+  border-radius: 50%;
+  height: 20px;
+  box-shadow: 
+    0 0 0 50px #39ae33,
+    -20px 0 0 20px #39ae33,
+    -90px 0 0 50px #39ae33,
+    250px 0 0 50px #39ae33,
+    290px 0 0 50px #39ae33,
+    620px 0 0 50px #39ae33;
+  animation: hill 4s 2s linear infinite;
+}
+.tree, .tree:nth-child(2), .tree:nth-child(3) {
+  position: absolute;
+  height: 100px; 
+  width: 35px;
+  bottom: 0;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/130015/tree.svg) no-repeat;
+}
+.rock {
+  margin-top: -17%;
+  height: 2%; 
+  width: 2%;
+  bottom: -2px;
+  border-radius: 20px;
+  position: absolute;
+  background: #ddd;
+}
+.truck, .wheels {
+  transition: all ease;
+  width: 85px;
+  margin-right: -60px;
+  bottom: 0px;
+  right: 50%;
+  position: absolute;
+  background: #eee;
+}
+.truck {
+  background: url(/img/truck.svg) no-repeat;
+  background-size: contain;
+  height: 60px;
+}
+.truck:before {
+  content: " ";
+  position: absolute;
+  width: 25px;
+  box-shadow:
+    -30px 28px 0 1.5px #fff,
+     -35px 18px 0 1.5px #fff;
+}
+.wheels {
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/130015/wheels.svg) no-repeat;
+  height: 15px;
+  margin-bottom: 0;
+}
+
+.tree  { animation: tree 3s 0.000s linear infinite; }
+.tree:nth-child(2)  { animation: tree2 2s 0.150s linear infinite; }
+.tree:nth-child(3)  { animation: tree3 8s 0.050s linear infinite; }
+.rock  { animation: rock 4s   -0.530s linear infinite; }
+.truck  { animation: truck 4s   0.080s ease infinite; }
+.wheels  { animation: truck 4s   0.001s ease infinite; }
+.truck:before { animation: wind 1.5s   0.000s ease infinite; }
+
+
+@keyframes tree {
+  0%   { transform: translate(1350px); }
+  50% {}
+  100% { transform: translate(-50px); }
+}
+@keyframes tree2 {
+  0%   { transform: translate(650px); }
+  50% {}
+  100% { transform: translate(-50px); }
+}
+@keyframes tree3 {
+  0%   { transform: translate(2750px); }
+  50% {}
+  100% { transform: translate(-50px); }
+}
+
+@keyframes rock {
+  0%   { right: -200px; }
+  100% { right: 2000px; }
+}
+@keyframes truck {
+  0%   { }
+  6%   { transform: translateY(0px); }
+  7%   { transform: translateY(-6px); }
+  9%   { transform: translateY(0px); }
+  10%   { transform: translateY(-1px); }
+  11%   { transform: translateY(0px); }
+  100%   { }
+}
+@keyframes wind {
+  0%   {  }
+  50%   { transform: translateY(3px) }
+  100%   { }
+}
+@keyframes mtn {
+  100% {
+    transform: translateX(-2000px) rotate(130deg);
+  }
+}
+@keyframes hill {
+  100% {
+    transform: translateX(-2000px);
+  }
+}
+
+/* ------------------ */
+
+.texto-direita {
+  width: 500px;
+  color: white;
+  font-family: "Raleway";
+  margin-left: 60px;
+  
+}
+
+.bloco {
+  margin-top: -20px !important;
+  border-radius: 30px;
+  margin: 50px;
+}
+
+.frase-sbrns {
+  font-family: "Raleway";
+  margin-top: 50px;
+  color: white;
+  
+}
+
+.frase-sbrns2 {
+  font-family: "Raleway";
+  font-size: 23px;
+  font-weight: 400;
+  color: white;
+}
+
+.margin {
+  margin-left: 80px;
+}
+
+.img-banner-aboutus:hover {
+  transform: translateY(-5);
+  transform: scale(1.1);
+
+}
+
+.container { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  flex-direction: column; 
+  text-align: center; 
+}
+
+.box2 { 
+  margin-top: 50px; 
+  max-width: 600px;
+  text-align: left !important;
+  width: 390px;
+}
+
+.logo {
+  width: 200px;
+  margin: 30px;
+}
+
+footer {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  margin-top: 100px;
+  color: #ddd;
+  font-family: "Raleway";
+}
+
+.itens {
+  color: #eee;
+}
+
+/* Teste */
+/*===== GOOGLE FONTS =====*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+/*===== VARIABLES CSS =====*/
+:root {
+  --dark-color-lighten: #f2f5ff;
+  --btn: #141414;
+  --btn-hover: #3a3a3a;
+  --text: #fbf7f7;
+}
+
+/*===== RESET =====*/
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--dark-color-lighten);
+  font-family: "Raleway";
+}
+
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+/*===== CARD =====*/
+.container {
+  height: 100%;
+  width: 850px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.card {
+  position: relative;
+  padding: 1rem;
+  width: 350px;
+  height: 450px;
+  box-shadow: -1px 15px 30px -12px rgb(32, 32, 32);
+  border-radius: 0.9rem;
+  background-color: var(--red-card);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.card-blue {
+  background: var(--blue-card);
+}
+
+.product-image {
+  height: 230px;
+  width: 100%;
+  transform: translate(0, -1.5rem);
+  transition: transform 500ms ease-in-out;
+  filter: drop-shadow(5px 10px 15px rgba(8, 9, 13, 0.4));
+}
+.product-info {
+  text-align: center;
+  font-family: "Raleway";
+}
+
+.card:hover .product-image {
+  transform: translate(-1.5rem, -7rem) rotate(-20deg);
+}
+
+.product-info h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.product-info p {
+  margin: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+
+
+.fav {
+  box-sizing: border-box;
+  background: #fff;
+  padding: 0.5rem 0.5rem;
+  border: 1px solid#000;
+  display: grid;
+  place-items: center;
+}
+
+.svg {
+  height: 25px;
+  width: 25px;
+  fill: #fff;
+  transition: all 500ms ease;
+}
+
+.fav:hover .svg {
+  fill: #000;
+}
+
+@media screen and (max-width: 800px) {
+  
+  .container {
+    padding: 2rem 0;
+    width: 100%;
+
+    gap: 3rem;
+  }
+}
+
+.cardzinhos {
+  margin-top: 100px;
+  
+}
+
+.titulo-index {
+  text-align: center;
+  font-family: "Raleway";
+  color: white;
+  margin-top: 50px;
+}
+
+.teste {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 100px;
+}
+
+.imagem-veneno {
+  width: 200px;
+  height: 300px;
+  margin-top: -35px;
+  margin-left: 50px;
+}
+
+.imagem-equipamentos {
+ margin-left: 40px;
+}
+
+/* Footer */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+
+.footer {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  background: #29b433;
+  min-height: 100px;
+  padding: 20px 50px;
+  align-items: center;
+ 
+}
+
+.social-icon,
+.menu {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.social-icon__item,
+.menu__item {
+  list-style: none;
+}
+
+.social-icon__link {
+  font-size: 2rem;
+  color: #fff;
+  margin: 0 10px;
+  display: inline-block;
+  transition: 0.5s;
+}
+.social-icon__link:hover {
+  transform: translateY(-10px);
+}
+
+.menu__link {
+  font-size: 1.2rem;
+  color: #fff;
+  margin: 0 10px;
+  display: inline-block;
+  transition: 0.5s;
+  text-decoration: none;
+  opacity: 0.75;
+  font-weight: 300;
+}
+
+.menu__link:hover {
+  opacity: 1;
+}
+
+.footer p {
+  color: #fff;
+  margin: 15px 0 10px 0;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.wave {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url("../img/wave.png");
+  background-size: 1000px 100px;
+}
+
+.wave#wave1 {
+  z-index: 1000;
+  opacity: 1;
+  bottom: 0;
+  animation: animateWaves 4s linear infinite;
+}
+
+.wave#wave2 {
+  z-index: 999;
+  opacity: 0.5;
+  bottom: 10px;
+  animation: animate 4s linear infinite !important;
+}
+
+.wave#wave3 {
+  z-index: 1000;
+  opacity: 0.2;
+  bottom: 15px;
+  animation: animateWaves 3s linear infinite;
+}
+
+.wave#wave4 {
+  z-index: 999;
+  opacity: 0.7;
+  bottom: 20px;
+  animation: animate 3s linear infinite;
+}
+
+@keyframes animateWaves {
+  0% {
+    background-position-x: 1000px;
+  }
+  100% {
+    background-positon-x: 0px;
+  }
+}
+
+@keyframes animate {
+  0% {
+    background-position-x: -1000px;
+  }
+  100% {
+    background-positon-x: 0px;
+  }
+}
+
+.imagem-responsiva {
+  width: 100%; /* ou uma largura fixa, como 300px */
+  max-width: 400px; /* largura máxima */
+}  
+  
+.card-img {
+  max-width: 100%; /* faz a imagem ajustar-se ao tamanho do contêiner */
+  height: auto; /* mantém a proporção */
+  display: block; /* remove espaços extras em torno da imagem */
+}

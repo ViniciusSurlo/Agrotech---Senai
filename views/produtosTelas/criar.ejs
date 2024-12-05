@@ -1,0 +1,43 @@
+<%- include('../includes/header.ejs', { titulo : 'Criar Produto'}) %>
+
+<main>
+    <h2>Adicionar Novo produto</h2>
+
+    <form action="/produtos/novo" method="POST" class="form">
+        <div class="form-group">
+            <label for="nome_produto">Nome do produto:</label>
+            <input type="text" id="nome_produto" name="nome_produto" required>
+        </div>
+        <div class="form-group">
+            <label for="valor">Preço:</label>
+            <input type="number" id="valor" name="valor"  step="0.01" placeholder="R$" required>
+        </div>
+        <div class="form-group">
+            <label for="estoque">Estoque:</label>
+            <input type="number" id="estoque" name="estoque" required>
+        </div>
+        <div class="form-group">
+            <label for="imagem">Imagem:</label>
+            <input type="url" id="imagem" name="imagem"  required>
+        </div>
+
+        <div class="form-group">
+            <label for="id_categoria">Categoria:</label>
+            <select id="id_categoria" name="id_categoria">
+                <option>
+                    <% for (let categoria of categorias) { %>
+                        <option value="<%= categoria.id_categoria %>"><%= categoria.nome_categoria %></option>
+                        <% } %>
+                    </option>
+            </select>
+
+        <button type="submit" class="btn btn-primary"> Adicionar </button>
+        <a href="/produtos/" class="btn btn-secondary"> Cancelar </a>
+        </div>
+
+        <% if (typeof mensagem != 'undefined') { %>
+            <p class="erro"><%= mensagem %></p>
+        <% } %>
+    </form>
+</main>
+
