@@ -68,7 +68,8 @@ app.use('/dashboard',verificarAutenticacao, dashboardRotas)
 
 const porta = 3000
 app.listen(porta, () => {
-    console.log(`Servidor rodando na porta http://192.168.0.130:${porta}`)
+    // console.log(`Servidor rodando na porta http://192.168.0.130:${porta}`)
+    console.log(`Servidor rodando na porta http://localhost:${porta}`)
 })
 
 
