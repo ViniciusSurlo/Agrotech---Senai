@@ -21,6 +21,12 @@ router.get('/', async (req, res) => {
     const produtos_baixo_estoque_tabela = await BD.query(`select nome_produto, estoque, valor from produtos 
         where estoque < estoque_minimo`)
     
+// Formatar para o padrão de moeda brasileira (R$)
+const valorFormatado = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL'
+}).format(qestoque.rows[0].estoque);
+    
     res.render('admin/dashboard', {
         totalCategorias: qcategorias.rows[0].total_categorias, 
         totalProdutos: qprodutos.rows[0].total_produtos,
@@ -29,7 +35,8 @@ router.get('/', async (req, res) => {
         produtos: produtos.rows,
         produtos_baixo_estoque: produtos_baixo_estoque.rows[0].abaixo_estoque,
         produtos_acima_estoque: produtos_acima_estoque.rows[0].acima_estoque,
-        produtos_baixo_estoque_tabela: produtos_baixo_estoque_tabela.rows
+        produtos_baixo_estoque_tabela: produtos_baixo_estoque_tabela.rows,
+        valorFormatado
     })
 })
 router.get('/dashboard', async (req, res) => {
