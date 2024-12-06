@@ -634,6 +634,17 @@ th {
   display: none;
 }
 
+nav > a {
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #198754;
+  margin-bottom: 4px;
+  transition: all 0.4s;
+  margin: 4px;
+  border-radius: 8px;
+}
+
 nav {
   display: flex;
   justify-content: baseline;
@@ -643,21 +654,12 @@ nav {
   height: 40px;
 }
 
-nav > a {
-  color: #fff;
-  padding: 10px 20px;
-  text-decoration: none;
-  background-color: #198754;
-  transition: all 0.4s;
-  margin-bottom: 4px;
+.ativosmenu-{
   border-radius: 8px;
-  margin: 4px;
-}
+ }
+
 
 nav a:hover {
   background: #4CAF50;
 }
 
-.ativosmenu-{
- border-radius: 8px;
-}
