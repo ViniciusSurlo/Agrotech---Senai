@@ -20,8 +20,8 @@ app.use(
     resave: false, // Não salva a sessão se não houver modificações
     saveUninitialized: false, // Não salva uma sessão vazia
     store: MongoStore.create({
-        // mongoUrl: "mongodb+srv://viniciussurlo:senai2024@senai-agrotech.qj2fl.mongodb.net/?retryWrites=true&w=majority&appName=senai-agrotech&tls=true"
-        mongoUrl: "mongodb+srv://senai:senai2024@session.7qyhx.mongodb.net/?retryWrites=true&w=majority&appName=session",
+        mongoUrl: "mongodb+srv://viniciussurlo:senai2024@senai-agrotech.qj2fl.mongodb.net/?retryWrites=true&w=majority&appName=senai-agrotech"
+        // mongoUrl: "mongodb+srv://senai:senai2024@session.7qyhx.mongodb.net/?retryWrites=true&w=majority&appName=session",
     })
 }));
 // Middleware para verificar se o usuário está logado
