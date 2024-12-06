@@ -103,7 +103,11 @@
       </section>
       
       <section id="inativos" class="hidden">
-        <h3>Inativos</h3>
+        <% if (quant_inativos == 0) { %>
+          <h3 class="mt-4">Não há Categorias Inativas</h3>
+          <% } else { %>
+            <h3 class="mt-4">Inativos</h3>
+          <% }%>
         <div class="d-flex gap-3 coluninha">
           <% for (let categoria of inativos) { %>
             <div class="card card-categorias">

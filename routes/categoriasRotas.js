@@ -9,7 +9,8 @@ router.get('/', async (req, res) => {
     const {busca = '', ordenar = "categorias.nome_categoria" } = req.query;
     const buscaDados = await BD.query(`SELECT * from categorias where upper(categorias.nome_categoria) like $1 and inativo is null order by ${ordenar}`, [`%${busca.toUpperCase()}%`])
     const inativos = await BD.query(`select * from categorias where inativo = 'S'`)
-    res.render('categoriasTelas/lista', {categorias: buscaDados.rows, busca, ordenar, inativos: inativos.rows})}
+    const quant_inativos = await BD.query(`select count(*) as inativas from categorias where inativo = 'S'`)
+    res.render('categoriasTelas/lista', {categorias: buscaDados.rows, busca, ordenar, inativos: inativos.rows, quant_inativos: quant_inativos.rows[0].inativas})}
     catch(erro){
         console.log('Erro ao listar Categorias', erro);
         res.render('categoriasTelas/lista', {mensagem:erro, categorias: []})
