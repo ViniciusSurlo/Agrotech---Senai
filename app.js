@@ -3,6 +3,8 @@ const path = require('path')
 const session = require('express-session')
 const fileUpload = require('express-fileupload')   
 const app = express()
+const MongoStore = require("connect-mongo")
+
 
 // Configurações do Servidor
 app.set('views', path.join(__dirname, 'views')); // Configura o diretório das views
@@ -12,10 +14,15 @@ app.use(express.urlencoded({ extended: true })) //Para processar os dados do for
 app.use(express.json());  // utilizar dados em formato JSON
 
 // Configuração Login
-app.use(session({
+app.use(
+    session({
     secret: 'sesisenai', // Um segredo para assinar a sessão
-    resave: true, // Não salva a sessão se não houver modificações
-    saveUninitialized: true // Não salva uma sessão vazia
+    resave: false, // Não salva a sessão se não houver modificações
+    saveUninitialized: false, // Não salva uma sessão vazia
+    store: MongoStore.create({
+        // mongoUrl: "mongodb+srv://viniciussurlo:senai2024@senai-agrotech.qj2fl.mongodb.net/?retryWrites=true&w=majority&appName=senai-agrotech&tls=true"
+        mongoUrl: "mongodb+srv://senai:senai2024@session.7qyhx.mongodb.net/?retryWrites=true&w=majority&appName=session",
+    })
 }));
 // Middleware para verificar se o usuário está logado
 // e disponibilizar a sessão em todas as views
@@ -62,14 +69,14 @@ app.use('/produtos', verificarAutenticacao, produtosRotas)
 const usuariosRotas = require('./routes/usuariosRotas')
 app.use('/usuarios', verificarAutenticacao, usuariosRotas)
 
-// Utilizando rotas de Dashbard
+// Utilizando rotas de Dashbord
 const dashboardRotas = require('./routes/dashboardRotas')
 app.use('/dashboard',verificarAutenticacao, dashboardRotas)
 
 const porta = 3000
 app.listen(porta, () => {
-    // console.log(`Servidor rodando na porta http://192.168.0.130:${porta}`)
-    console.log(`Servidor rodando na porta http://localhost:${porta}`)
+    console.log(`Servidor rodando na porta http://192.168.0.130:${porta}`)
+    // console.log(`Servidor rodando na porta http://192.168.0.130`)
 })
 
 
