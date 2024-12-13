@@ -4,7 +4,6 @@ const BD = require('../db')
 const {put, del} = require("@vercel/blob")
 
 // 2 Funções para fazer o upload do arquivo e retornar o link dele
-
 const enviarFoto = async (file) => {
     const fileBuffer = file.data
     const originalName = file.name
@@ -23,7 +22,6 @@ const excluirFoto = async (imagemUrl) => {
         console.log(`Arquivo ${nomeArquivo} excluído com sucesso.`);
     }
 }
-
 
 // Listar Produtos
 // Read

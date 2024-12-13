@@ -1,108 +1,140 @@
 <%- include('../includes/header.ejs', { titulo : 'Lista Categorias' }) %>
-  <main class="produtos-lista margem">
-
-    <h2 class="titulo-produtos"> Lista de Categorias</h2>
-    
-    <button type="button" class="btn btn-primary  adc-categoria mb-3" data-bs-toggle="modal"
-      data-bs-target="#exampleModal" data-bs-whatever="@mdo"> Adicionar nova</button>
-    <!-- Busca -->
-    <div class="arrumandocategoriasemfilas d-flex">
+<main class="produtos-lista margem">
 
 
-      <!-- Ordenar -->
-      <form action="/categorias/" method="GET" class="form form-consulta d-flex gap-3">
-        <input type="text" name="busca" class="form-control" placeholder="Buscar Categoria" value="<%= busca %>">
+  <h2 class="titulo-produtos"> Lista de Categorias</h2>
 
-        <select name="ordenar" onchange="this.form.submit()" class="form-select ordenar-soq-bonito">
-          <option value="nome_categoria" <%=ordenar=='nome_categoria' ? 'selected' : '' %>>Ordenar por Categoria
-          </option>
-        </select>
-        <button type="submit" class="btn btn-success buscar-soq-bonito">Buscar</button>
-      </form>
+  <button type="button" class="btn btn-primary  adc-categoria mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"> Adicionar nova</button>
+  <!-- Busca -->
+  <div class="arrumandocategoriasemfilas d-flex">
 
 
+    <!-- Ordenar -->
+    <form action="/categorias/" method="GET" class="form form-consulta d-flex gap-3">
+      <input type="text" name="busca" class="form-control" placeholder="Buscar Categoria" value="<%= busca %>">
 
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar Categoria</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+      <select name="ordenar" onchange="this.form.submit()" class="form-select ordenar-soq-bonito">
+        <option value="nome_categoria" <%=ordenar=='nome_categoria' ? 'selected' : '' %>>Ordenar por Categoria
+        </option>
+      </select>
+      <button type="submit" class="btn btn-success buscar-soq-bonito">Buscar</button>
+    </form>
 
-              <!-- CATEGORIAS NOVO -->
-              <form action="/categorias/novo" method="POST" class="form">
-                <div class="form-group">
-                  <label for="nome_categoria" class="col-form-label">Nome da Categoria:</label>
-                  <input type="text" class="form-control" id="nome_categoria" name="nome_categoria" required>
-                  <button type="submit" class="btn btn-primary adc-categoria gap-4 mt-3"> Adicionar </button>
-                  <a href="/categorias/" class="btn btn-secondary gap-4 mt-3" data-bs-dismiss="modal"> Cancelar </a>
-                </div>
-            </div>
 
-            <% if (typeof mensagem !='undefined' ) { %>
-              <p class="erro">
-                <%= mensagem %>
-              </p>
-              <% } %>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar Categoria</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          <div class="modal-body">
 
-          <div class="modal-footer">
-
-
+            <!-- CATEGORIAS NOVO -->
+            <form action="/categorias/novo" method="POST" class="form">
+              <div class="form-group">
+                <label for="nome_categoria" class="col-form-label">Nome da Categoria:</label>
+                <input type="text" class="form-control" id="nome_categoria" name="nome_categoria" required>
+                <button type="submit" class="btn btn-primary adc-categoria gap-4 mt-3"> Adicionar </button>
+                <a href="/categorias/" class="btn btn-secondary gap-4 mt-3" data-bs-dismiss="modal"> Cancelar </a>
+              </div>
           </div>
-          </form>
+        
+          <% if (typeof mensagem !='undefined' ) { %>
+          <p class="erro">
+            <%= mensagem %>
+          </p>
+          <% } %>
+
         </div>
+
+        <div class="modal-footer">
+
+
+        </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <% if (typeof mensagem !='undefined' ) { %>
-      <p class="erro">
-        <% mensagem %>
-      </p>
-      <% } %>
+  <!-- Modal de Edição -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editModalLabel">Editar Categoria</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editForm" action="/categorias/:id/editar" method="POST">
+          <div class="form-group">
+            <label for="edit_nome_categoria" class="col-form-label">Nome da Categoria:</label>
+            <input type="text" class="form-control" id="edit_nome_categoria" name="nome" required>
+          </div>
+          <button type="submit" class="btn btn-success mt-3">Salvar Alterações</button>
+          <button type="button" class="btn btn-secondary mt-3" data-bs-dismiss="modal">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- Menu de navegação -->
-<nav class="navbar navbar-expand-lg bg-green">
-  <a href="#" onclick="showSection('ativos')" class="ativosmenu">Categorias Ativas</a>
-  <a href="#" onclick="showSection('inativos')"class="ativosmenu" >Categorias Inativas</a>
-</nav>
-      
-        <!-- Lista Categorias -->
-         <section id="ativos">
-        <h3 class="mt-4">Ativos</h3>
-        <div class="d-flex gap-3 coluninha">
-          <% for (let categoria of categorias) { %>
-            <div class="card card-categorias">
-              <div class="card-header">
-                <strong>Categoria</strong>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">
-                  <%= categoria.nome_categoria %>
-                </h5>
+  <!-- Menu de navegação -->
+  <nav class="navbar navbar-expand-lg bg-green">
+    <a href="#" onclick="showSection('ativos')" class="ativosmenu">Categorias Ativas</a>
+    <a href="#" onclick="showSection('inativos')"class="ativosmenu" >Categorias Inativas</a>
+  </nav>
 
-                <div class="buttons centralizar">
-                  <!-- Botão de Editar -->
-                  <a href="/categorias/<%= categoria.id_categoria%>/editar" class="btn btn-edit botao">
-                    <i class="bi bi-pencil-square"></i>&nbsp;Editar
-                  </a>
-
-                  <!-- Botão de Excluir -->
-                  <form action="/categorias/<%= categoria.id_categoria%>/deletar" method="POST">
-                    <button type="submit" class="btn btn-delete botao" onclick="return confirmDelete(event, this)"><i
-                        class="bi bi-x-lg"></i>&nbsp;Inativar</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <%}%>
+  <!-- Lista Categorias -->
+  <section id="ativos">
+    <h3 class="mt-4">Ativos</h3>
+    <div class="d-flex gap-3 coluninha">
+      <% for (let categoria of categorias) { %>
+      <div class="card card-categorias">
+        <div class="card-header">
+          <strong>Categoria</strong>
         </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= categoria.nome_categoria %>
+          </h5>
+
+          <div class="buttons centralizar">
+            <!-- Botão de Editar com Modal -->
+            <a href="#" class="btn btn-edit botao" data-bs-toggle="modal" data-bs-target="#editModal" 
+            data-id="<%= categoria.id_categoria %>" data-nome="<%= categoria.nome_categoria %>">
+            <i class="bi bi-pencil-square"></i>&nbsp;Editar
+            </a>              
+
+            <!-- Botão de Excluir -->
+            <form action="/categorias/<%= categoria.id_categoria%>/deletar" method="POST">
+              <button type="submit" class="btn btn-delete botao" onclick="return confirmDelete(event, this)"><i class="bi bi-x-lg"></i>&nbsp;Inativar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <%}%>
+        </div>
+        <br>
+
+        <!-- Paginação  -->
+<nav aria-label="Page navigation example" class="paginacao">
+  <ul class="pagination">
+      <% if(pgAtual > 1) {%>
+    <li class="page-item"><a class="page-link" href="/categorias?pg=<%= pgAtual - 1 %>">Anterior</a></li>
+    <% } %>
+    
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    
+    <% if (pgAtual < totalPgs) { %>
+    <li class="page-item"><a class="page-link" href="/categorias?pg=<%= pgAtual + 1 %>">Próxima</a></li>
+  <% } %>  
+  </ul>
+</nav>
+
       </section>
-      
-      <section id="inativos" class="hidden">
+<section id="inativos" class="hidden">
         <% if (quant_inativos == 0) { %>
           <h3 class="mt-4">Não há Categorias Inativas</h3>
           <% } else { %>
@@ -110,31 +142,74 @@
           <% }%>
         <div class="d-flex gap-3 coluninha">
           <% for (let categoria of inativos) { %>
-            <div class="card card-categorias">
-              <div class="card-header">
-                <strong>Categoria</strong>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">
-                  <%= categoria.nome_categoria %>
-                </h5>
-
-                <div class="buttons">
-                  <!-- Botão de Ativar -->
-                  <form action="/categorias/<%= categoria.id_categoria%>/ativar" method="POST" class="centralizar">
-                    <button type="submit" class="btn btn-edit botao"><i class="bi bi-check2"></i>&nbsp;Ativar</button>
-                  </form>
-                  
-                </div>
-                
-              </div>
-            </div>
-            <%}%>
+      <div class="card card-categorias">
+        <div class="card-header">
+          <strong>Categoria</strong>
         </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= categoria.nome_categoria %>
+          </h5>
+
+          <div class="buttons">
+            <!-- Botão de Ativar -->
+            <form action="/categorias/<%= categoria.id_categoria%>/ativar" method="POST" class="centralizar">
+              <button type="submit" class="btn btn-edit botao"><i class="bi bi-check2"></i>&nbsp;Ativar</button>
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+      <%}%>
+        </div>
+        <br>
+        <br>
+
+        <% if(quant_inativos >= 1) { %>
+          <!-- Paginação  -->
+<nav aria-label="Page navigation example" class="paginacao">
+  <ul class="pagination">
+      <% if(pgAtual > 1) {%>
+    <li class="page-item"><a class="page-link" href="/categorias?pg=<%= pgAtual - 1 %>">Anterior</a></li>
+    <% } %>
+    
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    
+    <% if (pgAtual < totalPgs) { %>
+    <li class="page-item"><a class="page-link" href="/categorias?pg=<%= pgAtual + 1 %>">Próxima</a></li>
+  <% } %>  
+  </ul>
+</nav>
+<% } %>
       </section>
-        <br>
-        <br>
+
+
+
+
+
+
+
   </main>
+
+  <!-- Script para editar do Modal -->
+  <script>
+    const editModal = document.getElementById('editModal');
+    editModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      const id = button.getAttribute('data-id');
+      const nome = button.getAttribute('data-nome');
+  
+      // Preenche os campos do modal
+      const modalTitle = editModal.querySelector('.modal-title');
+      const inputNome = editModal.querySelector('#edit_nome_categoria');
+      const form = editModal.querySelector('#editForm');
+  
+      modalTitle.textContent = `Editar Categoria: ${nome}`;
+      inputNome.value = nome;
+      form.action = `/categorias/${id}/editar`;
+    });
+  </script>
 
   <!-- Script para Confirmação de Exclusão -->
   <script>

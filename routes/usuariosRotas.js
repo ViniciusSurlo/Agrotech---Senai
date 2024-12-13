@@ -22,7 +22,6 @@ const excluirFoto = async (imagemUrl) => {
     }
 }
 
-
 // Lista usuarios
 router.get('/', async (req, res) => {
     const { busca = '', ordenar = "usuarios.nome" } = req.query
@@ -37,7 +36,7 @@ router.get('/novo', async  (req, res) => {
         // res.render('usuariosTelas/novo', {usuarios: resultado.rows})
     }catch (erro){
         console.log('Erro ao abrir tela de cadastro de úsuario', erro);
-        res.render('usuariosTelas/lista', {mensagem: erro})
+        res.render('usuariosTelas/novo', {mensagem: erro})
     }
 })
 router.post('/novo/', async (req,res)=>{
@@ -48,32 +47,33 @@ router.post('/novo/', async (req,res)=>{
         res.redirect('/usuarios/')
     }catch (erro){
         console.log('Erro ao abrir tela de cadastro de úsuario', erro);
-        res.render('usuariosTelas/lista', {mensagem: erro})
+        res.render('usuariosTelas/novo', {mensagem: erro})
     }
 })
 
 //update
-router.get('/:id/editar' , async (req,res)=>{
-    try{
-        const id = req.params.id
-        const usuarios = await BD.query(' SELECT * from usuarios WHERE id_usuario = $1', [id])
-        res.render('usuariosTelas/editar' , {usuarios: usuarios.rows[0]})
-    }catch(erro){
-        console.log('Erro ao editar usuario', erro);
-        res.render('usuariosTelas/editar', {mensagem: erro})
-    }
-})
+// router.get('/:id/editar' , async (req,res)=>{
+//     try{
+//         const id = req.params.id
+//         const usuarios = await BD.query(' SELECT * from usuarios WHERE id_usuario = $1', [id])
+//         res.render('usuariosTelas/editar' , {usuarios: usuarios.rows[0]})
+//     }catch(erro){
+//         console.log('Erro ao editar usuario', erro);
+//         res.render('usuariosTelas/editar', {mensagem: erro})
+//     }
+// })
 
 router.post('/:id/editar', async (req,res)=>{
 try{
     const {id} = req.params
     const {nome, usuario, imagem, senha} = req.body
+
     let urlImagem = imagem
-    if(req.files){
-        excluirFoto(urlImagem)
+    if(req.files && req.files.file){
+        await excluirFoto(imagem)
         urlImagem = await enviarFoto(req.files.file)
     }
-
+    
     await BD.query(`UPDATE usuarios set nome = $1, usuario = $2, imagem = $3, senha = $4 WHERE id_usuario = $5`, [nome, usuario, urlImagem, senha, id])
     res.redirect('/usuarios/')
 }catch(erro){

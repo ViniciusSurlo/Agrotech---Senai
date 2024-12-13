@@ -20,7 +20,7 @@ app.use(
     resave: false, // Não salva a sessão se não houver modificações
     saveUninitialized: false, // Não salva uma sessão vazia
     store: MongoStore.create({
-    //     // mongoUrl: "mongodb+srv://viniciussurlo:senai2024@senai-agrotech.qj2fl.mongodb.net/?retryWrites=true&w=majority&appName=senai-agrotech"
+    // //     // mongoUrl: "mongodb+srv://viniciussurlo:senai2024@senai-agrotech.qj2fl.mongodb.net/?retryWrites=true&w=majority&appName=senai-agrotech"
         mongoUrl: "mongodb+srv://senai:senai2024@session.7qyhx.mongodb.net/?retryWrites=true&w=majority&appName=session",
     })
 }));
@@ -75,7 +75,8 @@ app.use('/dashboard',verificarAutenticacao, dashboardRotas)
 
 const porta = 3000
 app.listen(porta, () => {
-    console.log(`Servidor rodando na porta http://192.168.0.130:${porta}`)
+    // console.log(`Servidor rodando na porta http://192.168.0.130:${porta}`)
+    console.log(`Servidor rodando na porta http://localhost:${porta}`)
     // console.log(`Servidor rodando na porta http://192.168.0.130`)
 })
 

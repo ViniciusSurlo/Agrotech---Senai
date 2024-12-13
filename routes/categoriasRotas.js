@@ -6,11 +6,32 @@ const BD = require('../db')
 // Rota localhost:3000/categorias/
 router.get('/', async (req, res) => {
     try {
-    const {busca = '', ordenar = "categorias.nome_categoria" } = req.query;
-    const buscaDados = await BD.query(`SELECT * from categorias where upper(categorias.nome_categoria) like $1 and inativo is null order by ${ordenar}`, [`%${busca.toUpperCase()}%`])
+    const {busca = '', ordenar = "categorias.nome_categoria", pg = 1 } = req.query;
+
+    const limite = 6 // numero de registro por pagina
+    const offset = (pg - 1) * limite; // numero de registro a ser pular
+
+    const buscaDados = await BD.query(`SELECT * from categorias where upper(categorias.nome_categoria) like $1 and inativo is null order by ${ordenar} limit $2 offset $3`, [`%${busca.toUpperCase()}%`, limite, offset])
     const inativos = await BD.query(`select * from categorias where inativo = 'S'`)
     const quant_inativos = await BD.query(`select count(*) as inativas from categorias where inativo = 'S'`)
-    res.render('categoriasTelas/lista', {categorias: buscaDados.rows, busca, ordenar, inativos: inativos.rows, quant_inativos: quant_inativos.rows[0].inativas})}
+    
+    const totalItems = await BD.query(`SELECT count(*) as total 
+        from categorias where upper(categorias.nome_categoria) like $1 
+        and inativo is null`, [`%${busca.toUpperCase()}%`])
+    const totalPgs = Math.ceil(totalItems.rows[0].total / limite);
+
+    // const dadosCategoria = await BD.query("SELECT * FROM categorias WHERE id_categoria = $1", [id])
+
+    res.render('categoriasTelas/lista', {
+        categorias: buscaDados.rows, 
+        busca, 
+        ordenar, 
+        inativos: inativos.rows,
+        quant_inativos: quant_inativos.rows[0].inativas,
+        pgAtual: parseInt(pg),
+        totalPgs
+        // categorias_editar : dadosCategoria.rows[0]
+    })}
     catch(erro){
         console.log('Erro ao listar Categorias', erro);
         res.render('categoriasTelas/lista', {mensagem:erro, categorias: []})
@@ -43,16 +64,16 @@ router.post('/novo', async (req, res) => {
 })
 
 // Update (editar categorias)
-router.get('/:id/editar', async (req, res) => {
-    try {
-        const id = req.params.id
-        const resultado = await BD.query("SELECT * FROM categorias WHERE id_categoria = $1", [id])
-        res.render('categoriasTelas/editar', {categorias: resultado.rows[0]})
-    } catch(erro){
-        console.log('Erro ao editar Categorias', erro);
-        res.render('categoriasTelas/editar', {mensagem:erro})
-    }
-})
+// router.get('/:id/editar', async (req, res) => {
+//     try {
+//         const id = req.params.id
+//         const resultado = await BD.query("SELECT * FROM categorias WHERE id_categoria = $1", [id])
+//         res.render('categoriasTelas/editar', {categorias: resultado.rows[0]})
+//     } catch(erro){
+//         console.log('Erro ao editar Categorias', erro);
+//         res.render('categoriasTelas/editar', {mensagem:erro})
+//     }
+// })
 
 router.post('/:id/editar', async (req, res) => {
     try {
